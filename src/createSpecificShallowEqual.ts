@@ -3,9 +3,10 @@ import ReactDOMServer from "react-dom/server";
 import {is, Iterable} from "immutable";
 import {isArray, isObject, isNaN, isFunction} from "lodash";
 import {ShallowCompare, ShallowCompareProps} from "./types";
+import {isMoment, Moment} from "moment";
 
 export interface SpecificShallowEqualGuard {
-  [props: string]: string | number | Function | Iterable<any, any> | ReactElement<any> | File | boolean
+  [props: string]: string | number | Function | Iterable<any, any> | ReactElement<any> | File | boolean | Moment
 }
 
 const createSpecificShallowEqual =<TProps extends SpecificShallowEqualGuard> (...keysToTest: (keyof TProps)[]) => {
@@ -26,6 +27,9 @@ const createSpecificShallowEqual =<TProps extends SpecificShallowEqualGuard> (..
       } else {
         if(isFunction(nextVal)){
           return currentVal + "" === nextVal + "";
+        }
+        else if(isMoment(nextVal)){
+          return nextVal.isSame(currentVal)
         }
         else if ((isArray(nextVal) || isObject(nextVal) || isNaN(nextVal)) && !(nextVal instanceof File)) {
           throw new Error(`Specific shallow equal does not support plain old JS objects, Arrays and NaN: prop ${keyToTest} is a ${typeof nextVal}`);

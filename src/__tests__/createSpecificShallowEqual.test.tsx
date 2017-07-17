@@ -1,8 +1,7 @@
 import React from "react";
 import createIsSpecificShallowEqual from "../createSpecificShallowEqual";
 import {Map, List} from "immutable";
-
-const keysToTest = ["name", "required", "inputInfo"];
+import moment from "moment";
 
 const ReactElement = ({name}:{name?: string}) => <span className={name}></span>
 
@@ -81,6 +80,14 @@ const nextPropsDom = {
   name: (<span>label</span>),
 };
 
+const currentPropsMoment = {
+  name: moment("2011/10/31", "YYYY/MM/DD"),
+};
+
+const nextPropsMoment = {
+  name: moment("2011/11/31", "YYYY/MM/DD"),
+};
+
 const currentPropsReactDom = {
   name: (<ReactElement/>)
 };
@@ -109,7 +116,7 @@ const nextPropsFile = {
 
 
 describe('createIsSpecificShallowEqual()', () => {
-  const isSpecificShallowEqual = createIsSpecificShallowEqual(...keysToTest);
+  const isSpecificShallowEqual = createIsSpecificShallowEqual("name", "required", "inputInfo");
   it('returns a function', () => {
     expect(isSpecificShallowEqual).toBeInstanceOf(Function);
   });
@@ -123,18 +130,35 @@ describe('createIsSpecificShallowEqual()', () => {
     it('compares different objects: string is different', () => {
       expect(isSpecificShallowEqual(currentProps, nextPropsFailString)).toBe(false);
     });
+
     it('compares different DOM nodes: child is different', () => {
       expect(isSpecificShallowEqual(currentPropsDom, nextPropsDom)).toBe(false);
     });
     it('compares identical DOM nodes', () => {
       expect(isSpecificShallowEqual(currentPropsDom, currentPropsDom)).toBe(true);
     });
+
+    it('compares different dates', () => {
+      expect(isSpecificShallowEqual(currentPropsMoment, nextPropsMoment)).toBe(false);
+    });
+    it('compares identical dates', () => {
+      expect(isSpecificShallowEqual(currentPropsMoment, currentPropsMoment)).toBe(true);
+    });
+
     it('compares different ReactDOM nodes: child is different', () => {
       expect(isSpecificShallowEqual(currentPropsReactDom, nextPropsReactDom)).toBe(false);
     });
     it('compares identical ReactDOM nodes', () => {
       expect(isSpecificShallowEqual(currentPropsReactDom, currentPropsReactDom)).toBe(true);
     });
+
+    it('compares different ReactDOM nodes: child is different', () => {
+      expect(isSpecificShallowEqual(currentPropsReactDom, nextPropsReactDom)).toBe(false);
+    });
+    it('compares identical ReactDOM nodes', () => {
+      expect(isSpecificShallowEqual(currentPropsReactDom, currentPropsReactDom)).toBe(true);
+    });
+
     it('compares different functions', () => {
       expect(isSpecificShallowEqual(currentPropsFunction, nextPropsFunction)).toBe(false);
     });
@@ -155,6 +179,7 @@ describe('createIsSpecificShallowEqual()', () => {
     it('compares identical Files', () => {
       expect(isSpecificShallowEqual(currentPropsFile, currentPropsFile)).toBe(true);
     });
+
     it('compares throwing objects: NaN doesn\'t throw', () => {
       expect(() => isSpecificShallowEqual(currentPropsNan, currentPropsNan)).toThrowError();
     });
