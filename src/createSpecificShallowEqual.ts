@@ -1,7 +1,6 @@
 import {isValidElement, ReactNode, ReactElement} from "react";
 import ReactDOMServer from "react-dom/server";
 import {is, Iterable} from "immutable";
-import {Core} from "../typings/typescript.d";
 import {isArray, isObject, isNaN, isFunction} from "lodash";
 import {isMoment, Moment} from "moment";
 
