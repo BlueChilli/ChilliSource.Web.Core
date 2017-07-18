@@ -116,7 +116,7 @@ const nextPropsFile = {
 
 
 describe('createIsSpecificShallowEqual()', () => {
-  const isSpecificShallowEqual = createIsSpecificShallowEqual("name", "required", "inputInfo");
+  const isSpecificShallowEqual = createIsSpecificShallowEqual<any>("name", "required", "inputInfo");
   it('returns a function', () => {
     expect(isSpecificShallowEqual).toBeInstanceOf(Function);
   });

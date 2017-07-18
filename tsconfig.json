@@ -15,7 +15,7 @@
         ],
         "typeRoots": [
             "./Frecl/Types/**",
-            "./typings/declare.d.ts"
+            "./typings/typescript.d.ts"
         ]
     },
     "exclude": [

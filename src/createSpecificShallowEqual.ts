@@ -2,7 +2,7 @@ import {isValidElement, ReactNode, ReactElement} from "react";
 import ReactDOMServer from "react-dom/server";
 import {is, Iterable} from "immutable";
 import {isArray, isObject, isNaN, isFunction} from "lodash";
-import {ShallowCompare, ShallowCompareProps} from "./types";
+import {ShallowCompare, ShallowCompareProps} from "cs.core";
 import {isMoment, Moment} from "moment";
 
 export type SpecificShallowEqualType<T> = {
