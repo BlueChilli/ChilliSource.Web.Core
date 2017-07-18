@@ -1,5 +1,5 @@
-import {SpecificShallowEqualGuard} from "../src/createSpecificShallowEqual"
+import {SpecificShallowEqualType} from "../src/createSpecificShallowEqual"
 
 declare module "cs.core"{
-    export function createSpecificShallowEqual<TProps extends SpecificShallowEqualGuard> (...keysToTest: (keyof TProps)[]) : (currentProps: TProps, nextProps: TProps) => boolean
+    export function createSpecificShallowEqual<TProps> (...keysToTest: (keyof TProps)[]) : (currentProps: SpecificShallowEqualType<TProps>, nextProps: SpecificShallowEqualType<TProps>) => boolean
 }

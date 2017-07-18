@@ -1,20 +1,20 @@
-import {isValidElement, ReactElement} from "react";
+import {isValidElement, ReactNode, ReactElement} from "react";
 import ReactDOMServer from "react-dom/server";
 import {is, Iterable} from "immutable";
 import {isArray, isObject, isNaN, isFunction} from "lodash";
 import {ShallowCompare, ShallowCompareProps} from "./types";
 import {isMoment, Moment} from "moment";
 
-export interface SpecificShallowEqualGuard {
-  [props: string]: string | number | Function | Iterable<any, any> | ReactElement<any> | File | boolean | Moment
+export type SpecificShallowEqualType<T> = {
+  [P in keyof T]: string | number | Function | Iterable<any, any> | ReactNode | File | boolean | Moment
 }
 
-const createSpecificShallowEqual =<TProps extends SpecificShallowEqualGuard> (...keysToTest: (keyof TProps)[]) => {
+const createSpecificShallowEqual =<TProps> (...keysToTest: (keyof TProps)[]) => {
   /**
    * Creates a function that checks to see if the passed in properties are equal
    * {string} ...keysToTest - Properties to check if equal
    */
-  return (props: TProps, nextProps: TProps) => {
+  return (props: SpecificShallowEqualType<TProps>, nextProps: SpecificShallowEqualType<TProps>) => {
     return keysToTest.every(keyToTest => {
       const currentVal = props[keyToTest];
       const nextVal = nextProps[keyToTest];
