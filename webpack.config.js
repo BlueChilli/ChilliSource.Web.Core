@@ -15,7 +15,12 @@ module.exports = {
     rules: [{
       test: /\.(t|j)sx?$/,
       exclude: /(node_modules|custom_modules)/,
-      use: "awesome-typescript-loader"
+      use: [{
+        loader: "awesome-typescript-loader",
+        options: {
+          useBabel: true
+        }
+      }]
     }]
   },
   plugins: [

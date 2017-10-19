@@ -1,9 +1,12 @@
 {
+  "preRelease": "beta",
   "non-interactive": true,
   "dry-run": false,
   "verbose": true,
   "force": false,
-  "pkgFiles": ["package.json"],
+  "pkgFiles": [
+    "package.json"
+  ],
   "increment": "patch",
   "buildCommand": "echo 'built by teamcity'",
   "changelogCommand": "git log --pretty=format:\"* %s (%h)\" [REV_RANGE]",
@@ -22,7 +25,9 @@
     "repo": false,
     "stageDir": ".stage",
     "baseDir": "dist",
-    "files": ["**/*"],
+    "files": [
+      "**/*"
+    ],
     "pkgFiles": null,
     "commitMessage": "Release %s",
     "tagName": "%s",
@@ -34,7 +39,7 @@
   "npm": {
     "publish": false,
     "publishPath": ".",
-    "tag": "latest",
+    "tag": "beta",
     "private": true,
     "forcePublishSourceRepo": false
   },

@@ -2,6 +2,8 @@ var webpack = require("webpack");
 var autoprefixer = require('autoprefixer');
 var path = require('path');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 
 process.env.NODE_ENV = "production";
 
@@ -25,33 +27,11 @@ module.exports = {
       }]
     }]
   },
-  externals: {
-    "immutable": {
-      commonjs: "immutable",
-      commonjs2: "immutable",
-      amd: "immutable",
-      root: "Immutable"
-    },
-    "react": {
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "react",
-      root: "React"
-    },
-
-    "react-dom/server": {
-      commonjs: "react-dom/server",
-      commonjs2: "react-dom/server",
-      amd: "react-dom/server",
-    },
-
-    "moment": {
-      commonjs: "moment",
-      commonjs2: "moment",
-      amd: "moment",
-      root: "Moment"
-    },
-  },
+  externals: [nodeExternals(
+    {
+      whitelist: ['lodash-es']
+    }
+  )],
 
   plugins: [
     // new webpack.NoErrorsPlugin(),
