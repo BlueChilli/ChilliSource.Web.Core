@@ -6,14 +6,14 @@ import { isMoment, Moment } from "moment";
 
 export type SpecificShallowEqualType<T> = {
   [P in keyof T]:
-    | string
-    | number
-    | Function
-    | Iterable<any, any>
-    | ReactNode
-    | File
-    | boolean
-    | Moment
+  | string
+  | number
+  | Function
+  | Iterable<any, any>
+  | ReactNode
+  | File
+  | boolean
+  | Moment
 };
 
 const createSpecificShallowEqual = <TProps>(

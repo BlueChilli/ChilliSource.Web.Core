@@ -1,6 +1,7 @@
 var webpack = require("webpack");
 var autoprefixer = require('autoprefixer');
 var path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 process.env.NODE_ENV = "production";
 
@@ -11,12 +12,17 @@ module.exports = {
     libraryTarget: "umd",
     filename: "chillisource-web-core.js"
   },
-  
+
   module: {
     rules: [{
       test: /\.(t|j)sx?$/,
-      exclude:  /(node_modules|custom_modules)/,
-      use: "awesome-typescript-loader"
+      exclude: /(node_modules|custom_modules)/,
+      use: [{
+        loader: "awesome-typescript-loader",
+        options: {
+          useBabel: true
+        }
+      }]
     }]
   },
   externals: {
@@ -32,11 +38,18 @@ module.exports = {
       amd: "react",
       root: "React"
     },
-    "react-dom": {
-      commonjs: "react-dom",
-      commonjs2: "react-dom",
-      amd: "react-dom",
-      root: "ReactDOM"
+
+    "react-dom/server": {
+      commonjs: "react-dom/server",
+      commonjs2: "react-dom/server",
+      amd: "react-dom/server",
+    },
+
+    "moment": {
+      commonjs: "moment",
+      commonjs2: "moment",
+      amd: "moment",
+      root: "Moment"
     },
   },
 
@@ -49,7 +62,7 @@ module.exports = {
           return [autoprefixer]
         }
       }
-    })
+    }),
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.tsx', '.ts'],

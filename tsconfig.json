@@ -10,8 +10,19 @@
     "alwaysStrict": true,
     "strict": true,
     "pretty": true,
-    "lib": ["es6", "dom"],
-    "typeRoots": ["./Frecl/Types/**", "./typings/typescript.d.ts"]
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "typeRoots": [
+      "./Frecl/Types/**",
+      "./typings/typescript.d.ts"
+    ]
   },
-  "exclude": ["node_modules", "custom_modules", "**/*.test*.*", "doc"]
+  "exclude": [
+    "node_modules",
+    "custom_modules",
+    "**/*.test*.*",
+    "doc"
+  ]
 }
